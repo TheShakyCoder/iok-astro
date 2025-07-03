@@ -1,0 +1,25 @@
+---
+import { Image } from "astro:assets"
+import Layout from "../layouts/Layout.astro"
+
+---
+
+<Layout>
+    <div class="flex space-x-8">
+        <div class="flex flex-col space-y-4 flex-1 w-full">
+
+            <p>In Writing To:</p>
+            <p>IOK Engineering, <br>Unit 2, Pacific Road, <br>Bootle, <br>Merseyside, <br>L20 4DX</p>
+            
+            <p>Telephone: 0151 933 7773</p>
+            <p>Facsimile: 0151 922 5400</p>
+            <p>Email: info@iokengineering.co.uk</p>
+        
+        </div>
+        <div class="flex flex-col space-y-4">
+			<Image src="/cogs_small.jpg" alt="Airlock" width={100} height={100} />
+			<Image src="/comms_sml.jpg" alt="Airlock" width={100} height={100} />
+			<Image src="/bearings_small.jpg" alt="Airlock" width={100} height={100} />
+		</div>
+    </div>
+</Layout>

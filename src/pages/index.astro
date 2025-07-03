@@ -1,11 +1,21 @@
 ---
-import Welcome from '../components/Welcome.astro';
+import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
 <Layout>
-	<Welcome />
+	<div class="flex space-x-8">
+		<div class="flex flex-col space-y-4">
+			<h2 class="text-3xl">Welcome to IOK Engineering</h2>
+			<p class="text-xl">We pride ourselves on finding solutions to your engineering problems. If you need 1 or 1000 of a particular item, we can help. Call or visit to speak to an engineer directly.</p>
+			<p class="text-md">If you would like to contact us, please go to the contact link on the left of this page. You can call our team between 9.00am and 5.00pm weekdays, or simply send us an email. We will endeavour to respond to your queries promptly and with the utmost professionalism. Thankyou for visiting our site.</p>
+		</div>
+		<div class="flex flex-col space-y-4 min-w-[100px]">
+			<Image src="/cogs_small.jpg" alt="Airlock" width={100} height={100} />
+			<Image src="/comms_sml.jpg" alt="Airlock" width={100} height={100} />
+			<Image src="/bearings_small.jpg" alt="Airlock" width={100} height={100} />
+		</div>
+	</div>
+
 </Layout>

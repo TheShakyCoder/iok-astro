@@ -1,3 +1,8 @@
+---
+import "../styles/global.css";
+import background from "../assets/background.svg";	
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
@@ -5,10 +10,33 @@
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>IOK Engineering</title>
 	</head>
-	<body>
-		<slot />
+	<body class="">
+		<img id="background" src={background.src} alt="" fetchpriority="high" />
+		<div class="flex flex-col justify-start min-h-screen max-w-2xl mx-auto shadow-2xl px-8">
+			<header class="flex justify-between  space-x-2 -mx-8">
+				<a href="/" class="">
+					<img class="min-h-[236px] min-w-[200px]" src="/iok_logo.jpg" alt="Logo" />
+				</a>
+				<div class="flex flex-col justify-between">
+					<h1 class="text-4xl uppercase flex justify-center items-center h-full ">IOK Engineering</h1>
+	
+					<div class="flex justify-center space-x-8 bg-red-900 text-white p-4 px-5">
+						<a class="text-xl uppercase" href="/">Home</a>
+						<a class="text-xl uppercase" href="/about">About</a>
+						<a class="text-xl uppercase" href="/contact">Contact</a>
+						<a class="text-xl uppercase" href="/air-lock">AirLock®</a>
+					</div>
+				</div>
+			</header>
+			<div class="flex-1 mt-8">
+				<slot />
+			</div>
+			<footer class="py-8">
+				<p>Website by <a href="https://www.sharifkhan.co.uk">Sharif Khan</a></p>
+			</footer>
+		</div>
 	</body>
 </html>
 
@@ -18,5 +46,15 @@
 		margin: 0;
 		width: 100%;
 		height: 100%;
+	}
+
+	#background {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: -1;
+		filter: blur(100px);
 	}
 </style>
