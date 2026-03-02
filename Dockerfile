@@ -1,11 +1,9 @@
-# Build stage
-FROM node:20-alpine AS build
+# Build Stage
+FROM node:20 AS build
 WORKDIR /app
 
 # Copy dependency files
 COPY package.json package-lock.json ./
-
-# Install dependencies
 RUN npm ci
 
 # Copy the rest of the application
@@ -14,33 +12,23 @@ COPY . .
 # Build the project
 RUN npm run build
 
-# Runtime stage
-FROM nginx:stable-alpine
+# Runtime Stage (using standard Nginx instead of Alpine to avoid some networking issues)
+FROM nginx:stable
 
-# Copy built files from the build stage
+# Install curl for health check
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
+
+# Copy the build output
 COPY --from=build /app/dist /usr/share/nginx/html
 
-# Custom nginx configuration to handle Astro routes and gzip
-RUN echo " \
-server { \
-    listen 80; \
-    server_name localhost; \
-    root /usr/share/nginx/html; \
-    index index.html; \
- \
-    location / { \
-        try_files \$uri \$uri/ /404.html; \
-    } \
- \
-    error_page 404 /404.html; \
-    location = /404.html { \
-        internal; \
-    } \
- \
-    gzip on; \
-    gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript; \
-}" > /etc/nginx/conf.d/default.conf
+# Copy the custom Nginx configuration
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
+# Expose port 80
 EXPOSE 80
+
+# Basic health check to let Coolify know the container is healthy
+HEALTHCHECK --interval=30s --timeout=3s \
+  CMD curl -f http://localhost/ || exit 1
 
 CMD ["nginx", "-g", "daemon off;"]
